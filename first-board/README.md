@@ -11,13 +11,3 @@
 * Resource 처리 방법 = CRUD
   * Create, Read, Update, Delete
   * 이는 HTTP 표준 메서드 POST, GET, PUT/PATCH, DELETE 와 연결된다
-
-**1.1 URI**
-
-* Uniform Resource Identifier
-* Resource 지정 방법
-
-**1. 2 URL**
-
-* Uniform Resource Locator
-* Resource 지시자
