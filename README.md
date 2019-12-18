@@ -30,4 +30,4 @@
 
 ### 개인 Repository
 * [kimtaeyoung](https://github.com/grey-kimtaeyoung/FirstBoard)
-* [dayoung](https://github.com/chunbong/FirstBoard)
+* [dayoung](https://github.com/chunbong/FirstBoard/tree/master/first-board)
