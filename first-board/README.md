@@ -1,6 +1,5 @@
 # 학습 내용 정리
 
-2019.12.17 ~ 2019.12.18
 
 ### 1. REST API
 서로 다른 Front-end를 통해 다양한 환경(웹, 모바일)을 지원한다. 이들이 공통적으로 사용하는 기능을 하나의 Back-end로 제공할 수 있는데, 이 때 Back-end를  REST API를 사용해 만들어야 한다.
@@ -27,8 +26,6 @@
   * 가게를 삭제할 때 : DELETE /restaurants/{id}
 
 
-
-2019.12.18
 
 ### 2. Test Driven Development
 
