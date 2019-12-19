@@ -1,6 +1,6 @@
 package com.StudyBoardCRUD.firstBoard.normalBoard.controller;
 
-import com.StudyBoardCRUD.firstBoard.normalBoard.dto.Board;
+import com.StudyBoardCRUD.firstBoard.normalBoard.dto.BoardDto;
 import com.StudyBoardCRUD.firstBoard.normalBoard.service.BoardService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +19,13 @@ public class BoardController {
   BoardService boardService;
 
   @GetMapping("/list")
-  public ResponseEntity<List<Board>> getBoardList(
+  public ResponseEntity<List<BoardDto>> getBoardList(
       @RequestParam(value = "boardType",
           defaultValue = "normal",
           required = false) String boardType) {
 
-    List<Board> boardList = boardService.findBoardListByBoardType(boardType);
+    List<BoardDto> boardDtoList = boardService.findBoardListByBoardType(boardType);
 
-    return new ResponseEntity<>(boardList, HttpStatus.OK);
+    return new ResponseEntity<>(boardDtoList, HttpStatus.OK);
   }
 }

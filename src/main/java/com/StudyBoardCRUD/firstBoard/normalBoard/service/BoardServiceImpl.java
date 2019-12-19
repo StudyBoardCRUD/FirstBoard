@@ -1,7 +1,7 @@
 package com.StudyBoardCRUD.firstBoard.normalBoard.service;
 
 import com.StudyBoardCRUD.firstBoard.normalBoard.domain.repository.BoardRepository;
-import com.StudyBoardCRUD.firstBoard.normalBoard.dto.Board;
+import com.StudyBoardCRUD.firstBoard.normalBoard.dto.BoardDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +13,8 @@ public class BoardServiceImpl implements BoardService {
   BoardRepository boardRepository;
 
   @Override
-  public List<Board> findBoardListByBoardType(String boardType) {
-    List<Board> boardList = boardRepository.findBoardsByType(boardType);
-    return boardList;
+  public List<BoardDto> findBoardListByBoardType(String boardType) {
+    List<BoardDto> boardDtoList = boardRepository.findBoardsByType(boardType);
+    return boardDtoList;
   }
 }

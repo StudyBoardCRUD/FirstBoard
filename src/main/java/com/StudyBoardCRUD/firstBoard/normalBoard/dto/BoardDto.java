@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Board {
+public class BoardDto {
   private long id;
   private String title;
   private String content;
-  private String boardType;
+  private Long boardType;
 }

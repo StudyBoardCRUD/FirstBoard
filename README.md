@@ -1,6 +1,8 @@
 # CRUD-board-basic
 ## 학습 내용 정리
+* * *
 ### 19.12.16 
+* * * 
 #### JavaBeans란?
 * JavaBeans의 정의
  * JavaBeans란 자바로 작성된 소프트웨어 컴포넌트를 지칭하는 단어로 이 컴포넌트를 빈(Bean)이라고 부르며 썬사의 JavaBeans API에 정의된 스펙에 따라 만든다.
@@ -48,9 +50,10 @@ DTO는 Data Transfer Object, VO는 Value Object의 약자이다.
     * 기존 Junit의 보일러 플레이트를 최대한 제거하고, 다양한 케이스를 테스트하기에 적합하게 개발된 기능
     * 테스트 코드를 작성하며 추가적으로 보완해나갈 예정
 
-
+* * *
 ### 19.12.17 
-#### Spring의 Annotation
+* * * 
+#### Spring의 Annotation - 1
 * @RestController
     * 해당 함수를 REST controller로 만들어주는 기능
     
@@ -84,6 +87,74 @@ DTO는 Data Transfer Object, VO는 Value Object의 약자이다.
     * 올바른 응답 코드 및 데이터 구성 형식을 갖출수 있게 된다.
     * 표준 규약을 지킬 경우 frond <> back이 서로 에러상황에 맞춰 정상적인 처리를 유도 할 수 있다.
     
-#### JPA 사용하기
+#### JPA 사용하기 - 1
 * Repository 만들기
     * repository로 사용 할 interface를 만들어 준 뒤 JpaRepository interface를 상속받아 구현한다.
+    
+* * *
+### 19.12.18 
+* * * 
+#### Spring의 Annotation - 2
+* @ResponseStatus의 용도와 사용방법
+    * 사용자에게 원하는 http status code와 reason을 반환
+      예외처리 함수 앞에 사용하여 오류 발생시 확정된 오류값을 전달한다.
+      ```java
+        @RestController
+        @RequestMapping("/hello")
+        public class HelloController {
+
+            @GetMapping("/")
+            @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "my page URL changed..")
+            public void getMethod() {
+            }
+        }      
+        ```
+      
+* @Converter의 용도와 사용방법
+    * 변환이 필요한 데이터(Ex. 주민등록번호, 이메일, 패스워드... 등등)을 변환시켜줄때 사용하는 기능
+      
+#### JPA 사용하기 - 2
+* JPA의 정의
+    * Java Persistence API의 약자
+    * Persistence라는 단어는 Java DTO(Data Transfer Object)에게 '없어지지 않고 오랫동안 지속'되는 '영속성(persistence)'을 부여해준다는 의미.
+      즉, 데이터를 DB상에 영구적으로 저장해주는 API 
+    * 기존 JDBC만을 이용하는 경우 반복적이며 비슷한 SQL문을 많이 만들어야하고, 데이터베이스의 테이블과 자바 객체간의 매핑하는 소모적인 작업을 지속해야 한다.
+      JPA를 사용하게 되면 SQL문을 개발자가 만들지 않기 때문에 객체 중심적인 개발로 생산성과 유지보수의 능률이 크게 오르고, 특정 DBMS 문법에 종속적이지 않은 개발이 가능
+      또한 JPA의 영속성 컨텍스트는 효율적인 SQL처리에 크게 기여하여 성능상의 이점도 취할 수 있다.
+      
+* Entity 만들기
+    * Entity란?
+        * DB에서 영속적으로 저장된 데이터를 자바 객체로 매핑하여 '인스턴스의 형태'로 존재할 수 있게 해주는 데이터
+    * Java에서 Entity Class를 작성하는 방법 (차후 게시판 실제 예제로 변경 진행)
+        * ```java
+             @Entity
+             @Table(name = "product")
+             @Getter
+             @Setter
+             public class Product {
+                 @Id
+                 @GeneratedValue(strategy = GenerationType.IDENTITY)
+                 private Long id;
+                 @Column(length = 100, nullable = false)
+                 private String name;
+                 @Column(nullable = false)
+                 private int price;
+             
+                 @ManyToOne
+                 @JoinColumn(name ="category_id",nullable = false)
+                 private Category category;
+             
+                 @OneToMany(mappedBy = "product")
+                 private Set<Cart> carts;
+             }
+          ```
+* JPA의 Annotation
+    * @Entity - Entity클래스임을 명시합니다.
+    * @Table(name = "table name") - 매핑할 테이블 명을 지정합니다.
+    * @Id - 기본키임을 나타냅니다. 모든 Entity클래스는 @Id설정이 필요합니다. 기본키가 복합키로 된 경우는 @Embeddedid를 사용합니다.
+    * @GeneratedValue(strategy = GenerationType.IDENTITY) - JPA가 기본키 생성을 하도록 합니다. 
+    * @Column -  Entity클래스의 모든 필드는 데이터베이스의 컬럼과 매핑되어 따로 명시하지 않아도 됩니다. 하지만 매핑될 컬럼명이 다르거나, default값이 다른경우에 사용합니다. (이름은 카멜표기법이 소문자 스네이크 표기법으로 전환되고, length는 255, nullable은 true가 default 값입니다.)
+    * @JoinColumn - name에 명시한 category_id라는 컬럼명으로Category에 대한 외래키 설정이 됩니다. 참조 되는 컬럼은 Catrgory Entity클래스에서 @Id가 명시된 필드입니다.
+    * @OneToOne - 다른 Entity클래스와의 외래키 다대일(N:1)관계를 명시합니다. 
+    * @ManyToOne - 다른 Entity클래스와의 외래키 다대일(N:1)관계를 명시합니다. 
+    * @OneToMany - 다른 Entity클래스와 일대다(1:N)관계를 명시합니다. mappedBy에는 제네릭스로 명시된 Cart Entity가 외래키 설정에서 사용한 참조변수 이름입니다. 반대편이 Many 설정일 경우에는 반드시 컬렉션프레임워크(List나 Set)을 사용합니다.  방향성에 대한 자세한 내용은 다음 포스팅을 참고하시기 바랍니다. ☞ JPA Entity간의 방향 설정하기
