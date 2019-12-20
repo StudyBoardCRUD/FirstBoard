@@ -359,6 +359,8 @@ reactivity가 반영되어서 상위 컴포넌트의 데이터가 변경되면 �
 
 **8. Axios**
 
+HTTP 통신 라이브러리
+
 ```html
 ...
 <body>
@@ -394,3 +396,74 @@ reactivity가 반영되어서 상위 컴포넌트의 데이터가 변경되면 �
 ...
 ```
 
+**9. 템플릿 문법**
+
+```html
+...
+<body>
+	<div id="app">
+		<p>{{ num }}</p>
+		<p v-bind:id="uuid">{{ doubleNum }}</p>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			data: {
+				num: 10,
+				uuid: 'abc1234'
+			},
+			computed: {
+				doubleNum: function() {
+					return this.num * 2;
+				}
+			}
+			watch: {
+				num: function(newValue) {
+					this.fetchUserByNumber(newValue);
+				}
+			}
+			methods: {
+				fetchUserByNumber: function(num) {
+					console.log(num);
+				}
+			}
+		});
+	</script>
+</body>
+...
+```
+
+- 데이터 바인딩 :  ```{{ data }}```
+- 뷰 디렉티브 : ````v-````로 시작하는 속성
+
+**10. Vue CLI**
+
+Vue CLI로 생성한 프로젝트는 내부적으로 webpack이 동작해서 index.html ```<!-- built files will be auto injected --> ```부분에 main.js에 정의한 내용을 바탕으로 파일들을 하나로 합쳐 주입된다.
+
+**10.1 싱글 파일 컴포넌트(.vue)**
+
+HTML, JavaScipt, CSS를 한 파일에서 관리
+
+**10.1.1 기본 구조**
+
+```vue
+<template>
+	<!-- HTML -->
+</template>
+
+<script>
+export default {
+	// JavaScript - 인스턴스 옵션
+}
+</script>
+
+<style>
+	/* CSS */
+</style>
+```
+
+**10.1.2 컴포넌트 명명법**
+
+- kebab case or pascal case로 정의
