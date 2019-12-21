@@ -1,4 +1,4 @@
-package com.StudyBoardCRUD.firstBoard.normalBoard.domain.entity;
+package com.StudyBoardCRUD.firstBoard.normalboard.domain.entity;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -16,7 +16,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Table(name = "board")
 @Getter
 @Setter
-public class User {
+class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +45,4 @@ public class User {
   @UpdateTimestamp
   @Column(nullable = false)
   private Date lastLoggedIn;
-
-
 }

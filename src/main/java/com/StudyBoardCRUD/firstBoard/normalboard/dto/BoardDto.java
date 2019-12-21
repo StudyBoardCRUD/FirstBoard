@@ -1,4 +1,4 @@
-package com.StudyBoardCRUD.firstBoard.normalBoard.dto;
+package com.StudyBoardCRUD.firstBoard.normalboard.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardDto {
+
   private long id;
   private String title;
   private String content;

@@ -1,4 +1,4 @@
-package com.StudyBoardCRUD.firstBoard.normalBoard.helper;
+package com.StudyBoardCRUD.firstBoard.normalboard.helper;
 
 import java.security.Key;
 import java.util.Base64;
@@ -11,8 +11,24 @@ import javax.persistence.Converter;
 public class UserPwdConvertHelper implements
     AttributeConverter<String, String> {
 
-  private static final String ALGORITHM = "AES/ECB/PKCS5Padding";
   private static final byte[] KEY = "lelecoder".getBytes();
+  private static final String ALGORITHM = "AES/GCM/NoPadding";
+
+  static class UserInfoCipherException extends RuntimeException {
+
+    Key key;
+    String cipherInstanceString;
+
+    UserInfoCipherException() {
+      super();
+    }
+
+    UserInfoCipherException(Exception e, Key key, String cipherInstanceString) {
+      super(e);
+      this.key = key;
+      this.cipherInstanceString = cipherInstanceString;
+    }
+  }
 
   @Override
   public String convertToDatabaseColumn(String attribute) {
@@ -22,7 +38,7 @@ public class UserPwdConvertHelper implements
       cipher.init(Cipher.ENCRYPT_MODE, key);
       return new String(Base64.getEncoder().encode(cipher.doFinal(attribute.getBytes())));
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      throw new UserInfoCipherException(e, key, ALGORITHM);
     }
   }
 
@@ -34,7 +50,7 @@ public class UserPwdConvertHelper implements
       cipher.init(Cipher.DECRYPT_MODE, key);
       return new String(cipher.doFinal(Base64.getDecoder().decode(dbData)));
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      throw new UserInfoCipherException(e, key, ALGORITHM);
     }
   }
 
