@@ -1,4 +1,4 @@
-package com.StudyBoardCRUD.firstBoard.normalBoard.dto;
+package com.StudyBoardCRUD.firstBoard.normalboard.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

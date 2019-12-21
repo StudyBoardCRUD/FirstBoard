@@ -1,4 +1,4 @@
-package com.StudyBoardCRUD.firstBoard.normalBoard;
+package com.StudyBoardCRUD.firstBoard.normalboard;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.StudyBoardCRUD.firstBoard.normalBoard.dto;
+package com.StudyBoardCRUD.firstBoard.normalboard.dto;
 
 import java.util.Date;
 import lombok.AllArgsConstructor;

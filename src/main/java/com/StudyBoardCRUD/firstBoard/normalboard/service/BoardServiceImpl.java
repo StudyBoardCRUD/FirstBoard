@@ -1,7 +1,7 @@
-package com.StudyBoardCRUD.firstBoard.normalBoard.service;
+package com.StudyBoardCRUD.firstBoard.normalboard.service;
 
-import com.StudyBoardCRUD.firstBoard.normalBoard.domain.repository.BoardRepository;
-import com.StudyBoardCRUD.firstBoard.normalBoard.dto.BoardDto;
+import com.StudyBoardCRUD.firstBoard.normalboard.domain.repository.BoardRepository;
+import com.StudyBoardCRUD.firstBoard.normalboard.dto.BoardDto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

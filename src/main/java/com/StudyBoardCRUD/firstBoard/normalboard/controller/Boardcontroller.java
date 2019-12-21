@@ -1,7 +1,7 @@
-package com.StudyBoardCRUD.firstBoard.normalBoard.controller;
+package com.StudyBoardCRUD.firstBoard.normalboard.controller;
 
-import com.StudyBoardCRUD.firstBoard.normalBoard.dto.BoardDto;
-import com.StudyBoardCRUD.firstBoard.normalBoard.service.BoardService;
+import com.StudyBoardCRUD.firstBoard.normalboard.dto.BoardDto;
+import com.StudyBoardCRUD.firstBoard.normalboard.service.BoardService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/board")
-public class BoardController {
+public class Boardcontroller {
 
   private final BoardService boardService;
 
   @Autowired
-  public BoardController(BoardService boardService) {
+  public Boardcontroller(BoardService boardService) {
     this.boardService = boardService;
   }
 
@@ -26,7 +26,7 @@ public class BoardController {
   public ResponseEntity<List<BoardDto>> getBoardList(
       @RequestParam(value = "boardType",
           defaultValue = "normal",
-          required = false) String boardType) {
+          required = false) long boardType) {
 
     List<BoardDto> boardDtoList = boardService.findBoardListByBoardType(boardType);
 

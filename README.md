@@ -236,7 +236,6 @@ DTO는 Data Transfer Object, VO는 Value Object의 약자이다.
               context.close();
           } 
         }
-
         ```
 
 * [생성자 주입을 사용해야 하는 이유, 필드인젝션이 좋지 않은 이유](https://yaboong.github.io/spring/2019/08/29/why-field-injection-is-bad/)
@@ -295,3 +294,69 @@ DTO는 Data Transfer Object, VO는 Value Object의 약자이다.
     * 주입받을 필드를 final 로 선언 가능하다.
     * (Spring에서의 장점) 생성자 주입을 이용한 순환참조를 컴파일타임에 확인하여 방지 할 수 있다.
     * 테스트 코드를 작성하기 좋다.
+    
+    
+### 19.12.21 
+* * * 
+#### Exception
+* [사용자 정의 예외](https://edu.goorm.io/learn/lecture/41/%EB%B0%94%EB%A1%9C%EC%8B%A4%EC%8A%B5-%EC%83%9D%ED%99%9C%EC%BD%94%EB%94%A9-%EC%9E%90%EB%B0%94-java/lesson/39283/%EB%82%98%EB%A7%8C%EC%9D%98-%EC%98%88%EC%99%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0)
+    * checked or unchecked
+        * checked - API 호출자가 오류에 대한 답변을 받아서 처리가 가능 할 경우 사용
+                    Exception을 상속받아 구현한다.
+                    checked exception이기 때문에 try - catch 구문을 이용해 API 호출자가 이용할 수 있는 에러반환 처리를 제공해야한다.
+        * unchecked - API 호출자가 오류에 대한 답변을 받아도 따로 처리가 불가능한 경우
+                      RuntimeException을 상속받아 구현한다.
+                      ex) convertToDatabaseColumn의 암호화 과정 중 오류가 발생했을 경우 이는 서버단의 문제이기 때문에 프론트에서는 처리가 불가능하다. 이런경우 unchecked로 에러를 처리해야한다.
+                      
+    * 표준 예외 클래스를 이용해서 많은 예외 상황을 표현하는게 가능하다.
+      하지만 예의를 직접 만들어 줌으로써 어떤 상황에서 unchecked가 발생하였고, 어떻게 추적할 것인지에 대해명확히 정의할 수 있다.
+      
+    * 사용자 정의 예외의 장점은 클래스 변수를 이용하여 추가적인 변수를 이용하여 에러상황에서 좀 더 상세한 파라미터 및 상황에 대한 로그를 남길 수 있다는 장점이 있다.
+        * example
+          ```java
+          class DivideException extends Exception {
+              public int left;
+              public int right;
+          
+              DivideException(){
+                  super();
+              }
+              DivideException(String message, int left, int right){
+                  super(message);
+                  this.left = left;
+                  this.right = right;
+              }
+          }
+          class Calculator{
+              int left, right;
+              public void setOprands(int left, int right){
+                  this.left = left;
+                  this.right = right;
+              }
+          
+              public void divide() throws DivideException{
+                  if(this.right == 0){
+                      throw new DivideException("0으로 나누는 것은 허용되지 않습니다.");
+                  }
+                  System.out.print(this.left/this.right);
+              }
+          }
+          
+          class Main {
+          
+              public static void main(String[] args) {
+                  Calculator c1 = new Calculator();
+                  c1.setOprands(10, 0);
+                  try {
+                    c1.divide();
+                  } catch(DivideException e) {
+                    System.out.println(e.getMessage());
+                    System.out.println(e.left);
+                    System.out.println(e.right);
+                  }
+              }
+          }
+          ```
+      
+    * [sornalint info] MyOwnRuntimeException()을 생성하여 오류를 처리 할 것을 경고하였다.
+

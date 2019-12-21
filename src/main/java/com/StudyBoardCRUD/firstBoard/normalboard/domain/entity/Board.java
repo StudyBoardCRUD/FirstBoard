@@ -1,4 +1,4 @@
-package com.StudyBoardCRUD.firstBoard.normalBoard.domain.entity;
+package com.StudyBoardCRUD.firstBoard.normalboard.domain.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
